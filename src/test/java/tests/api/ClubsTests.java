@@ -7,6 +7,7 @@ import models.login.LoginBodyModel;
 import models.login.SuccessfulLoginResponseModel;
 import models.registration.RegistrationBodyModel;
 import models.registration.SuccessfulRegistrationResponseModel;
+import org.assertj.core.api.SoftAssertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import tests.TestBase;
@@ -22,90 +23,121 @@ public class ClubsTests extends TestBase {
     @DisplayName("[API] Создание клуба")
     public void successfulCreationOfClub() {
         SuccessfulRegistrationResponseModel registrationResponse = api.user.userRegistration
-                (new RegistrationBodyModel(testData.username, testData.password));
+                (new RegistrationBodyModel(
+                        testData.username,
+                        testData.password));
 
-        SuccessfulLoginResponseModel loginResponse = api.auth.userAuthorization(new LoginBodyModel
-                (testData.username, testData.password));
+        SuccessfulLoginResponseModel loginResponse = api.auth.userAuthorization(new LoginBodyModel(
+                testData.username,
+                testData.password));
 
-        CreateClubsBodyModel clubsData = new CreateClubsBodyModel(testData.bookTitle, testData.bookAuthors,
-                testData.publicationYear, testData.description, TELEGRAM_CHAT_LINK);
+        CreateClubsBodyModel clubsData = new CreateClubsBodyModel(
+                testData.bookTitle,
+                testData.bookAuthors,
+                testData.publicationYear,
+                testData.description,
+                TELEGRAM_CHAT_LINK);
 
         String access = "Bearer " + loginResponse.access();
 
-        SuccessfulCreateClubResponseModel createClubResponse = api.clubs.clubCreation(clubsData, access);
+        SuccessfulCreateClubResponseModel createClubResponse = api.clubs.clubCreation(
+                clubsData,
+                access);
 
         step("Проверка данных созданного клуба", () -> {
-            assertThat(createClubResponse.id()).isNotNull();
-            assertThat(createClubResponse.bookTitle()).isEqualTo(testData.bookTitle);
-            assertThat(createClubResponse.bookAuthors()).isEqualTo(testData.bookAuthors);
-            assertThat(createClubResponse.publicationYear()).isEqualTo(testData.publicationYear);
-            assertThat(createClubResponse.description()).isEqualTo(testData.description);
-            assertThat(createClubResponse.telegramChatLink()).isEqualTo(TELEGRAM_CHAT_LINK);
-            assertThat(createClubResponse.owner()).isNotNull();
-            assertThat(createClubResponse.owner()).isEqualTo(registrationResponse.id());
-            assertThat(createClubResponse.members()).isNotNull();
-            assertThat(createClubResponse.members()).isNotEmpty();
-            assertThat(createClubResponse.reviews()).isEmpty();
-            assertThat(createClubResponse.created()).isNotNull();
-            assertThat(createClubResponse.modified()).isNull();
+            SoftAssertions.assertSoftly(softAssertions -> {
+                softAssertions.assertThat(createClubResponse.id()).isNotNull();
+                softAssertions.assertThat(createClubResponse.bookTitle()).isEqualTo(testData.bookTitle);
+                softAssertions.assertThat(createClubResponse.bookAuthors()).isEqualTo(testData.bookAuthors);
+                softAssertions.assertThat(createClubResponse.publicationYear()).isEqualTo(testData.publicationYear);
+                softAssertions.assertThat(createClubResponse.description()).isEqualTo(testData.description);
+                softAssertions.assertThat(createClubResponse.telegramChatLink()).isEqualTo(TELEGRAM_CHAT_LINK);
+                softAssertions.assertThat(createClubResponse.owner()).isNotNull();
+                softAssertions.assertThat(createClubResponse.owner()).isEqualTo(registrationResponse.id());
+                softAssertions.assertThat(createClubResponse.members()).isNotNull();
+                softAssertions.assertThat(createClubResponse.members()).isNotEmpty();
+                softAssertions.assertThat(createClubResponse.reviews()).isEmpty();
+                softAssertions.assertThat(createClubResponse.created()).isNotNull();
+                softAssertions.assertThat(createClubResponse.modified()).isNull();
+            });
         });
     }
 
     @Test
     @DisplayName("[API] Просмотр клуба")
     public void successfulViewingClub() {
-        api.user.userRegistration(new RegistrationBodyModel(testData.username, testData.password));
+        api.user.userRegistration(new RegistrationBodyModel(
+                testData.username,
+                testData.password));
 
-        SuccessfulLoginResponseModel loginResponse = api.auth.userAuthorization(new LoginBodyModel
-                (testData.username, testData.password));
+        SuccessfulLoginResponseModel loginResponse = api.auth.userAuthorization(new LoginBodyModel(
+                testData.username,
+                testData.password));
 
-        CreateClubsBodyModel clubsData = new CreateClubsBodyModel(testData.bookTitle, testData.bookAuthors,
-                testData.publicationYear, testData.description, TELEGRAM_CHAT_LINK);
+        CreateClubsBodyModel clubsData = new CreateClubsBodyModel(
+                testData.bookTitle,
+                testData.bookAuthors,
+                testData.publicationYear,
+                testData.description,
+                TELEGRAM_CHAT_LINK);
 
         String access = "Bearer " + loginResponse.access();
 
         SuccessfulCreateClubResponseModel createClubResponse = api.clubs.clubCreation(clubsData, access);
 
-        Integer clubId = createClubResponse.id();
-
-        SuccessfulCreateClubResponseModel viewingClubResponse = api.clubs.clubViewing(clubId);
+        SuccessfulCreateClubResponseModel viewingClubResponse = api.clubs.clubViewing(createClubResponse.id());
 
         step("Проверка данных клуба", () -> {
-            assertThat(viewingClubResponse.id()).isEqualTo(clubId);
-            assertThat(viewingClubResponse.bookTitle()).isEqualTo(testData.bookTitle);
-            assertThat(viewingClubResponse.bookAuthors()).isEqualTo(testData.bookAuthors);
-            assertThat(viewingClubResponse.publicationYear()).isEqualTo(testData.publicationYear);
-            assertThat(viewingClubResponse.description()).isEqualTo(testData.description);
-            assertThat(viewingClubResponse.telegramChatLink()).isEqualTo(TELEGRAM_CHAT_LINK);
+            SoftAssertions.assertSoftly(softAssertions -> {
+                softAssertions.assertThat(viewingClubResponse.id()).isEqualTo(createClubResponse.id());
+                softAssertions.assertThat(viewingClubResponse.bookTitle()).isEqualTo(testData.bookTitle);
+                softAssertions.assertThat(viewingClubResponse.bookAuthors()).isEqualTo(testData.bookAuthors);
+                softAssertions.assertThat(viewingClubResponse.publicationYear()).isEqualTo(testData.publicationYear);
+                softAssertions.assertThat(viewingClubResponse.description()).isEqualTo(testData.description);
+                softAssertions.assertThat(viewingClubResponse.telegramChatLink()).isEqualTo(TELEGRAM_CHAT_LINK);
+            });
         });
     }
 
     @Test
     @DisplayName("[API] Редактирование телеграм-ссылки клуба")
     public void successfulEditingClub() {
-        api.user.userRegistration(new RegistrationBodyModel(testData.username, testData.password));
+        api.user.userRegistration(new RegistrationBodyModel(
+                testData.username,
+                testData.password));
 
-        SuccessfulLoginResponseModel loginResponse = api.auth.userAuthorization(new LoginBodyModel
-                (testData.username, testData.password));
+        SuccessfulLoginResponseModel loginResponse = api.auth.userAuthorization(new LoginBodyModel(
+                testData.username,
+                testData.password));
 
-        CreateClubsBodyModel clubsData = new CreateClubsBodyModel(testData.bookTitle, testData.bookAuthors,
-                testData.publicationYear, testData.description, TELEGRAM_CHAT_LINK);
+        CreateClubsBodyModel clubsData = new CreateClubsBodyModel(
+                testData.bookTitle,
+                testData.bookAuthors,
+                testData.publicationYear,
+                testData.description,
+                TELEGRAM_CHAT_LINK);
 
         String access = "Bearer " + loginResponse.access();
 
-        SuccessfulCreateClubResponseModel createClubResponse = api.clubs.clubCreation(clubsData, access);
+        SuccessfulCreateClubResponseModel createClubResponse = api.clubs.clubCreation(
+                clubsData,
+                access);
 
-        Integer clubId = createClubResponse.id();
+        CreateClubsBodyModel clubsNewData = new CreateClubsBodyModel(
+                testData.bookTitle,
+                testData.bookAuthors,
+                testData.publicationYear,
+                testData.description,
+                NEW_TELEGRAM_CHAT_LINK);
 
-        CreateClubsBodyModel clubsNewData = new CreateClubsBodyModel(testData.bookTitle, testData.bookAuthors,
-                testData.publicationYear, testData.description, NEW_TELEGRAM_CHAT_LINK);
-
-        SuccessfulCreateClubResponseModel editingClubResponse = api.clubs.clubTelegramEditing
-                (clubId, clubsNewData, access);
+        SuccessfulCreateClubResponseModel editingClubResponse = api.clubs.clubTelegramEditing(
+                createClubResponse.id(),
+                clubsNewData,
+                access);
 
         step("Проверка данных клуба после редактирования Telegram-ссылки", () -> {
             assertThat(editingClubResponse.id()).isNotNull();
-            assertThat(editingClubResponse.id()).isEqualTo(clubId);
+            assertThat(editingClubResponse.id()).isEqualTo(createClubResponse.id());
             assertThat(editingClubResponse.bookTitle()).isEqualTo(testData.bookTitle);
             assertThat(editingClubResponse.bookAuthors()).isEqualTo(testData.bookAuthors);
             assertThat(editingClubResponse.publicationYear()).isEqualTo(testData.publicationYear);
@@ -118,22 +150,29 @@ public class ClubsTests extends TestBase {
     @Test
     @DisplayName("[API] Удаление клуба")
     public void successfulRemoveClub() {
-        api.user.userRegistration(new RegistrationBodyModel(testData.username, testData.password));
+        api.user.userRegistration(new RegistrationBodyModel(
+                testData.username,
+                testData.password));
 
-        SuccessfulLoginResponseModel loginResponse = api.auth.userAuthorization(new LoginBodyModel
-                (testData.username, testData.password));
+        SuccessfulLoginResponseModel loginResponse = api.auth.userAuthorization(new LoginBodyModel(
+                testData.username,
+                testData.password));
 
-        CreateClubsBodyModel clubsData = new CreateClubsBodyModel(testData.bookTitle, testData.bookAuthors,
-                testData.publicationYear, testData.description, TELEGRAM_CHAT_LINK);
+        CreateClubsBodyModel clubsData = new CreateClubsBodyModel(
+                testData.bookTitle,
+                testData.bookAuthors,
+                testData.publicationYear,
+                testData.description,
+                TELEGRAM_CHAT_LINK);
 
         String access = "Bearer " + loginResponse.access();
 
-        SuccessfulCreateClubResponseModel createClubResponse = api.clubs.clubCreation(clubsData, access);
+        SuccessfulCreateClubResponseModel createClubResponse = api.clubs.clubCreation(
+                clubsData,
+                access);
 
-        Integer clubId = createClubResponse.id();
+        api.clubs.clubDeletion(createClubResponse.id(), access);
 
-        api.clubs.clubDeletion(clubId, access);
-
-        api.clubs.clubViewing(clubId, access, 404);
+        api.clubs.clubViewing(createClubResponse.id(), access, 404);
     }
 }

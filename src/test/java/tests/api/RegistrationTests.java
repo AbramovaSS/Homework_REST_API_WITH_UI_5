@@ -4,6 +4,7 @@ import data.TestData;
 import models.login.FieldRequiredResponseModel;
 import models.registration.RegistrationBodyModel;
 import models.registration.SuccessfulRegistrationResponseModel;
+import org.assertj.core.api.SoftAssertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import tests.TestBase;
@@ -19,23 +20,31 @@ public class RegistrationTests extends TestBase {
     @DisplayName("[API] Успешная регистрация")
     public void successfulRegistration() {
         SuccessfulRegistrationResponseModel registrationResponse = api.user.userRegistration
-                (new RegistrationBodyModel(testData.username, testData.password));
+                (new RegistrationBodyModel(
+                        testData.username,
+                        testData.password));
 
         step("Проверка данных пользователя после регистрации", () -> {
-            assertThat(registrationResponse.username()).isEqualTo(testData.username);
-            assertThat(registrationResponse.firstName()).isEqualTo("");
-            assertThat(registrationResponse.lastName()).isEqualTo("");
-            assertThat(registrationResponse.email()).isEqualTo("");
-            assertThat(registrationResponse.remoteAddr()).matches(REGISTRATION_IP_REGEXP);
+            SoftAssertions.assertSoftly(softAssertions -> {
+                softAssertions.assertThat(registrationResponse.username()).isEqualTo(testData.username);
+                softAssertions.assertThat(registrationResponse.firstName()).isEqualTo("");
+                softAssertions.assertThat(registrationResponse.lastName()).isEqualTo("");
+                softAssertions.assertThat(registrationResponse.email()).isEqualTo("");
+                softAssertions.assertThat(registrationResponse.remoteAddr()).matches(REGISTRATION_IP_REGEXP);
+            });
         });
     }
 
     @Test
     @DisplayName("[API] Регистрация существующего пользователя")
     public void existingUserWrongRegistration() {
-        api.user.userRegistration(new RegistrationBodyModel(testData.username, testData.password));
+        api.user.userRegistration(new RegistrationBodyModel(
+                testData.username,
+                testData.password));
         FieldRequiredResponseModel secondRegistrationResponse = api.user.existingUserRegistration
-                (new RegistrationBodyModel(testData.username, testData.password));
+                (new RegistrationBodyModel(
+                        testData.username,
+                        testData.password));
 
         step("Проверка сообщения об ошибке при повторной регистрации", () -> {
             String actualError = secondRegistrationResponse.username().get(0);
@@ -46,7 +55,9 @@ public class RegistrationTests extends TestBase {
     @Test
     @DisplayName("[API] Регистрация с пустым полем username")
     public void emptyUsernameFieldRegistration() {
-        RegistrationBodyModel registrationData = new RegistrationBodyModel("", testData.password);
+        RegistrationBodyModel registrationData = new RegistrationBodyModel(
+                "",
+                testData.password);
         FieldRequiredResponseModel emptyUserResponseModel = api.user.emptyUsernameFieldRegistration(registrationData);
 
         step("Проверка сообщения об ошибке для пустого поля username при регистрации", () -> {
@@ -58,8 +69,10 @@ public class RegistrationTests extends TestBase {
     @Test
     @DisplayName("[API] Регистрация c username длиной 151 символ")
     public void inputMoreThan150CharactersRegistration() {
-        RegistrationBodyModel registrationData = new RegistrationBodyModel(testData.longUsername,
+        RegistrationBodyModel registrationData = new RegistrationBodyModel(
+                testData.longUsername,
                 testData.password);
+
         FieldRequiredResponseModel longUserResponseModel = api.user.longUsernameFieldRegistration(registrationData);
 
         step("Проверка сообщения об ошибке для слишком длинного username при регистрации", () -> {
@@ -67,4 +80,4 @@ public class RegistrationTests extends TestBase {
             assertThat(actualError).isEqualTo(MORE_THAN_150_CHARACTERS_ERROR);
         });
     }
-    }
+}

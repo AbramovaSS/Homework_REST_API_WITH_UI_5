@@ -8,6 +8,7 @@ import models.logout.FieldNullResponseModel;
 import models.logout.LogoutBodyModel;
 import models.logout.UnauthorizedResponseModel;
 import models.registration.RegistrationBodyModel;
+import org.assertj.core.api.SoftAssertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import tests.TestBase;
@@ -20,12 +21,16 @@ public class LogoutTests extends TestBase {
     TestData testData = new TestData();
 
     @Test
-    @DisplayName("Успешный выход из аккаунта")
+    @DisplayName("[API] Успешный выход из аккаунта")
     public void successfulLogout() {
-        api.user.userRegistration(new RegistrationBodyModel(testData.username, testData.password));
+        api.user.userRegistration(new RegistrationBodyModel(
+                testData.username,
+                testData.password));
 
         SuccessfulLoginResponseModel loginResponse = api.auth.userAuthorization
-                (new LoginBodyModel(testData.username, testData.password));
+                (new LoginBodyModel(
+                        testData.username,
+                        testData.password));
 
         String actualTokenRefresh = step("Извлечение refresh-токена из ответа", () -> {
             String refreshToken = loginResponse.refresh();
@@ -41,9 +46,10 @@ public class LogoutTests extends TestBase {
     }
 
     @Test
-    @DisplayName("Обработка ошибки при передаче нулевого refresh-токена")
+    @DisplayName("[API] Обработка ошибки при передаче нулевого refresh-токена")
     public void transmittingZeroRefresh() {
-        FieldNullResponseModel refreshNullResponse = api.auth.refreshNullLogout(new LogoutBodyModel(REFRESH_NULL));
+        FieldNullResponseModel refreshNullResponse = api.auth.refreshNullLogout
+                (new LogoutBodyModel(REFRESH_NULL));
 
         step("Проверка ошибки для пустого refresh-токена", () -> {
             String actualRefreshError = refreshNullResponse.refresh().get(0);
@@ -52,7 +58,7 @@ public class LogoutTests extends TestBase {
     }
 
     @Test
-    @DisplayName("Обработка ошибки при передаче невалидного refresh-токена")
+    @DisplayName("[API] Обработка ошибки при передаче невалидного refresh-токена")
     public void passingInvalidRefresh() {
         UnauthorizedResponseModel logoutUnauthorizedResponse = api.auth.refreshInvalidLogout
                 (new LogoutBodyModel(REFRESH_INVALID));
@@ -60,8 +66,11 @@ public class LogoutTests extends TestBase {
         step("Проверка ошибки для невалидного refresh-токена", () -> {
             String actualDetailError = logoutUnauthorizedResponse.detail();
             String actualCodeError = logoutUnauthorizedResponse.code();
-            assertThat(actualDetailError).isEqualTo(TOKEN_INVALID_ERROR);
-            assertThat(actualCodeError).isEqualTo(TOKEN_NOT_VALID_ERROR);
+
+            SoftAssertions.assertSoftly(softAssertions -> {
+                softAssertions.assertThat(actualDetailError).isEqualTo(TOKEN_INVALID_ERROR);
+                softAssertions.assertThat(actualCodeError).isEqualTo(TOKEN_NOT_VALID_ERROR);
+            });
         });
     }
 }

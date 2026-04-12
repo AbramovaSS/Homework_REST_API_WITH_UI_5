@@ -14,7 +14,22 @@ public class BookClubPage {
             clubAuthors = $(".authors"),
             clubPublicationYear = $(".year"),
             clubDescription = $(".description"),
-            clubDetail = $(".club-details");
+            clubDetail = $(".club-details"),
+            reviewButton = $(".add-review-btn"),
+            reviewForm = $(".review-form"),
+            assessment = $("#assessment"),
+            readPages = $("#readPages"),
+            review = $("#review"),
+            saveButton = $(".save-btn"),
+            reviewCard = $(".review-card"),
+            reviewerName = $(".reviewer-name"),
+            reviewContent = $(".review-content"),
+            readPagesCard = $(".read-pages"),
+            reviewRating = $(".stars"),
+            editReviewButton = $(".edit-review-btn"),
+            saveBtn = $("save-btn"),
+            deleteReviewButton = $(".delete-review-btn"),
+            noReviews = $(".no-reviews");
 
     ContentClubComponent contentClubComponent = new ContentClubComponent();
 
@@ -37,7 +52,6 @@ public class BookClubPage {
         return this;
     }
 
-    @Step("Проверить данные")
     public BookClubPage checkResult(SelenideElement key, String value) {
         contentClubComponent.checkResultValues(key, value);
         return this;
@@ -65,9 +79,114 @@ public class BookClubPage {
         return this;
     }
 
-    @Step("Проверить, что отобразился созданный клуб")
+    @Step("Проверить, что клуб удален")
     public BookClubPage checkErrorClubDetail() {
         clubDetail.shouldBe(text("Не удалось загрузить информацию о клубе"));
         return this;
     }
+
+    @Step("Нажать на кнопку \"Написать отзыв\"")
+    public BookClubPage setReviewButton() {
+        reviewButton.click();
+        return this;
+    }
+
+    @Step("Проверить, что открылась форма для создания отзыва")
+    public BookClubPage checkReviewForm() {
+        reviewForm.shouldBe(visible);
+        return this;
+    }
+
+    @Step("Ввести оценку от 1 до 5 в поле \"Оценка\"")
+    public BookClubPage setAssessment(int value) {
+        assessment.setValue(String.valueOf(value));
+        return this;
+    }
+
+    @Step("Указать количество прочитанных страниц в поле \"Прочитано страниц\"")
+    public BookClubPage setReadPages(int value) {
+        readPages.setValue(String.valueOf(value));
+        return this;
+    }
+
+    @Step("Ввести текст отзыва о книге в поле \"Ваш отзыв\"")
+    public BookClubPage setReview(String value) {
+        review.setValue(value);
+        return this;
+    }
+
+    @Step("Нажать на кнопку \"Опубликовать\"")
+    public BookClubPage setSaveButton() {
+        saveButton.click();
+        return this;
+    }
+
+    @Step("Проверить, что появилась карточка нового отзыва")
+    public BookClubPage checkReviewCard() {
+        reviewCard.shouldBe(visible);
+        return this;
+    }
+
+    public SelenideElement getReviewerName() {
+        return reviewerName;
+    }
+
+    public SelenideElement getReviewContent() {
+        return reviewContent;
+    }
+
+    public SelenideElement getReadPagesCard() {
+        return readPagesCard;
+    }
+
+    public SelenideElement getReviewRating() {
+        return reviewRating;
+    }
+
+    @Step("Нажать на кнопку \"Редактировать\"")
+    public BookClubPage setEditReviewButton() {
+        editReviewButton.click();
+        return this;
+    }
+
+    @Step("Отредактировать данные в поле \"Оценка\"")
+    public BookClubPage editReviewAssessment(int value) {
+        assessment.clear();
+        assessment.setValue(String.valueOf(value));
+        return this;
+    }
+
+    @Step("Отредактировать данные в поле \"Прочитано страниц\"")
+    public BookClubPage editReviewReadPages(int value) {
+        readPages.clear();
+        readPages.setValue(String.valueOf(value));
+        return this;
+    }
+
+    @Step("Отредактировать отзыв в поле \"Ваш отзыв\"")
+    public BookClubPage editReview(String value) {
+        review.clear();
+        review.setValue(value);
+        return this;
+    }
+
+    @Step("Нажать на кнопку \"Сохранить\"")
+    public BookClubPage setSaveBtn() {
+        saveBtn.click();
+        return this;
+    }
+
+    @Step("Нажать на кнопку \"Удалить\"")
+    public BookClubPage setDeleteReviewButton() {
+        deleteReviewButton.click();
+        confirm();
+        return this;
+    }
+
+    @Step("Проверить, что отзыв удален")
+    public BookClubPage checkNoReviews() {
+        noReviews.shouldBe(text("Пока нет отзывов. Будьте первым, кто поделится впечатлениями!"));
+        return this;
+    }
+
 }

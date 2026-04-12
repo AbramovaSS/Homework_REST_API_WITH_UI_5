@@ -19,16 +19,23 @@ public class UpdateUserTests extends TestBase {
     TestData testData = new TestData();
 
     @Test
-    @DisplayName("Успешное обновление данных пользователя методом PUT")
+    @DisplayName("[API] Успешное обновление данных пользователя методом PUT")
     public void successfulUpdateUserDataTest() {
         SuccessfulRegistrationResponseModel registrationResponse = api.user.userRegistration
-                (new RegistrationBodyModel(testData.username, testData.password));
+                (new RegistrationBodyModel(
+                        testData.username,
+                        testData.password));
 
-        String access = "Bearer " + api.auth.userAuthorization(new LoginBodyModel
-                (testData.username, testData.password));
+        String access = "Bearer " + api.auth.userAuthorization(new LoginBodyModel(
+                testData.username,
+                testData.password));
 
-        SuccessfulUpdateResponseModel updateResponse = api.user.userDataUpdate(new UpdateBodyModel
-                (testData.username, testData.firstName, testData.lastName, testData.email), access);
+        SuccessfulUpdateResponseModel updateResponse = api.user.userDataUpdate(new UpdateBodyModel(
+                testData.username,
+                testData.firstName,
+                testData.lastName,
+                testData.email),
+                access);
 
         step("Проверка корректности обновленных данных пользователя", () -> {
             Assertions.assertThat(updateResponse.id()).isEqualTo(registrationResponse.id());
@@ -41,16 +48,20 @@ public class UpdateUserTests extends TestBase {
     }
 
     @Test
-    @DisplayName("Успешное добавление email методом PATCH")
+    @DisplayName("[API] Успешное добавление email методом PATCH")
     public void successfulEmailUpdateTest() {
         SuccessfulRegistrationResponseModel registrationResponse = api.user.userRegistration
-                (new RegistrationBodyModel(testData.username, testData.password));
+                (new RegistrationBodyModel(
+                        testData.username,
+                        testData.password));
 
         String access = "Bearer " + api.auth.userAuthorization(new LoginBodyModel
                 (testData.username, testData.password));
 
         SuccessfulUpdateResponseModel updateResponse = api.user.userEmailUpdate
-                (new UpdateEmailBodyModel(testData.email), access);
+                (new UpdateEmailBodyModel(
+                        testData.email),
+                        access);
 
         step("Проверка корректности обновленных данных, включая email", () -> {
             Assertions.assertThat(updateResponse.id()).isEqualTo(registrationResponse.id());
@@ -63,15 +74,22 @@ public class UpdateUserTests extends TestBase {
     }
 
     @Test
-    @DisplayName("Обработка ошибки при передаче пустого поля username")
+    @DisplayName("[API] Обработка ошибки при передаче пустого поля username")
     public void usernameFieldRequiredWhenUpdatingTest() {
-        api.user.userRegistration(new RegistrationBodyModel(testData.username, testData.password));
+        api.user.userRegistration(new RegistrationBodyModel(
+                testData.username,
+                testData.password));
 
-        String access = "Bearer " + api.auth.userAuthorization(new LoginBodyModel
-                (testData.username, testData.password));
+        String access = "Bearer " + api.auth.userAuthorization(new LoginBodyModel(
+                testData.username,
+                testData.password));
 
         FieldRequiredResponseModel updateWithoutUsernameResponse = api.user.emptyUsernameUpdate
-                (new UpdateWithoutUsernameBodyModel(testData.firstName, testData.lastName, testData.email), access);
+                (new UpdateWithoutUsernameBodyModel(
+                        testData.firstName,
+                        testData.lastName,
+                        testData.email),
+                        access);
 
         step("Проверка, что API вернул ошибку о незаполненном поле username", () -> {
             String actualUsernameError = updateWithoutUsernameResponse.username().get(0);

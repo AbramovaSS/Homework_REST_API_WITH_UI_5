@@ -64,12 +64,6 @@ public class TestData {
 
     public static final String TELEGRAM_CHAT_LINK = "https://t.me/my_telegram_chat";
 
-    public static final String NEW_BOOK_TITLE = "Игрок";
-
-    public static final String NEW_BOOK_AUTHORS = "Ф. М. Достоевский";
-
-    public static final int NEW_PUBLICATION_YEAR = 1866;
-
     public static final String NEW_BOOK_DESCRIPTION = "«Игро́к» — роман русского писателя Фёдора " +
             "Михайловича Достоевского, впервые опубликованный в 1866 году.";
 
@@ -79,8 +73,6 @@ public class TestData {
 
     public static final int REVIEW_ID = 6;
 
-    public static final String OLD_USERNAME = "pronans";
-
-    public static final String OLD_PASSWORD = "1234";
+    public static final String ERROR_CONVERTING_TO_JSON = "Ошибка конвертации объекта в JSON";
 
 }

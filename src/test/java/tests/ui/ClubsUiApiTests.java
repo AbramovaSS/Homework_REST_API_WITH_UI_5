@@ -59,7 +59,7 @@ public class ClubsUiApiTests extends TestBase {
             jsonStringLocalStorage = mapper.writeValueAsString(localStorageAuthRequestBody);
             System.out.println(jsonStringLocalStorage);
         } catch (JsonProcessingException e) {
-            throw new RuntimeException("Ошибка конвертации объекта в JSON", e);
+            throw new RuntimeException(ERROR_CONVERTING_TO_JSON, e);
         }
 
         bookClubPage.openFaviconPage(jsonStringLocalStorage)
@@ -73,7 +73,7 @@ public class ClubsUiApiTests extends TestBase {
 
     @Test
     @DisplayName("[UI + API] Редактирование описания клуба")
-    public void successfulEditingClub() {
+    public void successfulEditingClubUI() {
         SuccessfulRegistrationResponseModel registrationResponse = api.user.userRegistration(new RegistrationBodyModel(testData.username, testData.password));
 
         SuccessfulLoginResponseModel loginResponse = api.auth.userAuthorization(new LoginBodyModel
@@ -106,7 +106,7 @@ public class ClubsUiApiTests extends TestBase {
             jsonStringLocalStorage = mapper.writeValueAsString(localStorageAuthRequestBody);
             System.out.println(jsonStringLocalStorage);
         } catch (JsonProcessingException e) {
-            throw new RuntimeException("Ошибка конвертации объекта в JSON", e);
+            throw new RuntimeException(ERROR_CONVERTING_TO_JSON, e);
         }
 
         bookClubPage.openFaviconPage(jsonStringLocalStorage)
@@ -132,7 +132,7 @@ public class ClubsUiApiTests extends TestBase {
 
     @Test
     @DisplayName("[UI + API] Удаление клуба")
-    public void successfulRemoveClub() {
+    public void successfulRemoveClubUI() {
         SuccessfulRegistrationResponseModel registrationResponse = api.user.userRegistration(new RegistrationBodyModel(testData.username, testData.password));
 
         SuccessfulLoginResponseModel loginResponse = api.auth.userAuthorization(new LoginBodyModel
@@ -165,7 +165,7 @@ public class ClubsUiApiTests extends TestBase {
             jsonStringLocalStorage = mapper.writeValueAsString(localStorageAuthRequestBody);
             System.out.println(jsonStringLocalStorage);
         } catch (JsonProcessingException e) {
-            throw new RuntimeException("Ошибка конвертации объекта в JSON", e);
+            throw new RuntimeException(ERROR_CONVERTING_TO_JSON, e);
         }
 
         bookClubPage.openFaviconPage(jsonStringLocalStorage)
