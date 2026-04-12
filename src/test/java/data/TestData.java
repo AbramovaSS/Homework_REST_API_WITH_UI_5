@@ -7,14 +7,14 @@ import java.util.Locale;
 public class TestData {
     Faker faker = new Faker(new Locale("en"));
 
-    public String username = faker.name().firstName(),
+    public String username = faker.name().femaleFirstName() + "preshporok",
             password = faker.credentials().password(),
             longUsername = faker.lorem().characters(151),
             firstName = faker.name().firstName(),
             lastName = faker.name().lastName(),
             email = faker.internet().emailAddress(),
-            bookTitle = faker.book().title(),
-            bookAuthors = faker.book().author(),
+            bookTitle = faker.book().title() + faker.brand(),
+            bookAuthors = faker.book().author() + faker.name(),
             description = faker.lorem().paragraph(),
             review = faker.lorem().paragraph(),
             newReview = faker.lorem().paragraph();
