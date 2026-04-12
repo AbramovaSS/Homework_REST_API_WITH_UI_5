@@ -16,7 +16,7 @@ import static specs.login.LoginSpec.wrongCredentialLoginResponseSpec;
 import static specs.reviews.ReviewsSpec.*;
 
 public class ReviewsApiClient {
-    @Step("Отправка POST-запроса на создание отзыва")
+    @Step("Отправить POST-запрос на создание отзыва")
     public SuccessfulCreateReviewResponseModel reviewCreation(String access, CreateReviewBodyModel reviewData) {
         return given(requestSpec)
                 .header("Authorization", access)
@@ -29,7 +29,7 @@ public class ReviewsApiClient {
                 .as(SuccessfulCreateReviewResponseModel.class);
     }
 
-    @Step("Отправка PUT-запроса на редактирование отзыва")
+    @Step("Отправить PUT-запрос на редактирование отзыва")
     public SuccessfulCreateReviewResponseModel reviewEdit
             (Integer reviewId, String access, CreateReviewBodyModel editReviewData) {
         return given(requestSpec)
@@ -44,7 +44,7 @@ public class ReviewsApiClient {
                 .as(SuccessfulCreateReviewResponseModel.class);
     }
 
-    @Step("Отправка PATCH-запроса на редактирование оценки отзыва")
+    @Step("Отправить PATCH-запрос на редактирование оценки отзыва")
     public SuccessfulCreateReviewResponseModel reviewAssessmentEdit
             (Integer reviewId, String access, EditAssessmentReviewBodyModel editAssessmentReviewData) {
         return given(requestSpec)
@@ -59,7 +59,7 @@ public class ReviewsApiClient {
                 .as(SuccessfulCreateReviewResponseModel.class);
     }
 
-    @Step("Отправка DELETE-запроса на удаление отзыва")
+    @Step("Отправить DELETE-запрос на удаление отзыва")
     public void reviewDeletion(Integer reviewId, String access) {
         given(requestRemoveSpec)
                 .pathParam("id", reviewId)
@@ -70,7 +70,7 @@ public class ReviewsApiClient {
                 .spec(deleteReviewResponseSpec);
     }
 
-    @Step("Проверка удаления отзыва")
+    @Step("Провеить, что отзыв удален")
     public void reviewViewing(Integer reviewId, String access, Integer expectedStatusCode) {
         given(requestRemoveSpec)
                 .pathParam("id", reviewId)

@@ -16,7 +16,7 @@ import static specs.login.LoginSpec.*;
 import static specs.logout.LogoutSpec.*;
 
 public class AuthApiClient {
-    @Step("Авторизация с корректными учетными данными")
+    @Step("Залогиниться с корректными учетными данными")
     public SuccessfulLoginResponseModel userAuthorization(LoginBodyModel loginData) {
         return given(requestSpec)
                 .body(loginData)
@@ -50,7 +50,7 @@ public class AuthApiClient {
                 .as(FieldRequiredResponseModel.class);
     }
 
-    @Step("POST-запрос на выход из аккаунта")
+    @Step("Отправить POST-запрос на выход из аккаунта")
     public Response userLogout(LogoutBodyModel logoutData) {
         return given(requestSpec)
                 .body(logoutData)
@@ -62,7 +62,7 @@ public class AuthApiClient {
                 .response();
     }
 
-    @Step("Отправка POST-запроса на выход с нулевым refresh-токеном")
+    @Step("Отправить POST-запрос на выход с нулевым refresh-токеном")
     public FieldNullResponseModel refreshNullLogout(LogoutBodyModel logoutData) {
         return given(requestSpec)
                 .body(logoutData)
@@ -74,7 +74,7 @@ public class AuthApiClient {
                 .as(FieldNullResponseModel.class);
     }
 
-    @Step("Отправка POST-запроса на выход с невалидным refresh-токеном")
+    @Step("Отправить POST-запрос на выход с невалидным refresh-токеном")
     public UnauthorizedResponseModel refreshInvalidLogout(LogoutBodyModel logoutData) {
         return given(requestSpec)
                 .body(logoutData)

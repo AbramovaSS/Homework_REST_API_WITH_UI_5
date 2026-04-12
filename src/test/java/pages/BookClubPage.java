@@ -33,7 +33,7 @@ public class BookClubPage {
 
     ContentClubComponent contentClubComponent = new ContentClubComponent();
 
-    @Step("Открыть ресурс и передать авторизацию {value}")
+    @Step("Открыть ресурс и передать авторизацию")
     public BookClubPage openFaviconPage(String value) {
         open("/favicon.ico");
         localStorage().setItem("book_club_auth", value);
@@ -56,19 +56,22 @@ public class BookClubPage {
         contentClubComponent.checkResultValues(key, value);
         return this;
     }
-
+    @Step("Проверить название клуба")
     public SelenideElement getClubTitle() {
         return clubTitle;
     }
 
+    @Step("Проверить имя автора книги")
     public SelenideElement getClubAuthors() {
         return clubAuthors;
     }
 
+    @Step("Проверить год публикации книги")
     public SelenideElement getClubPublicationYear() {
         return clubPublicationYear;
     }
 
+    @Step("Проверить описание созданного клуба")
     public SelenideElement getClubDescription() {
         return clubDescription;
     }
@@ -127,18 +130,22 @@ public class BookClubPage {
         return this;
     }
 
+    @Step("Проверить имя автора клуба")
     public SelenideElement getReviewerName() {
         return reviewerName;
     }
 
+    @Step("Проверить контент клуба")
     public SelenideElement getReviewContent() {
         return reviewContent;
     }
 
+    @Step("Проверить указанное количество прочитанных страниц")
     public SelenideElement getReadPagesCard() {
         return readPagesCard;
     }
 
+    @Step("Проверить оценку книги")
     public SelenideElement getReviewRating() {
         return reviewRating;
     }

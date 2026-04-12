@@ -12,7 +12,7 @@ import static specs.reviews.ReviewsSpec.createReviewResponseSpec;
 import static specs.reviews.ReviewsSpec.deleteReviewResponseSpec;
 
 public class ClubsApiClient {
-    @Step("Отправка POST-запроса на создание клуба")
+    @Step("Отправить POST-запрос на создание клуба")
     public SuccessfulCreateClubResponseModel clubCreation(CreateClubsBodyModel clubsData, String access) {
         return given(requestSpec)
                 .header("Authorization", access)
@@ -25,7 +25,7 @@ public class ClubsApiClient {
                 .as(SuccessfulCreateClubResponseModel.class);
     }
 
-    @Step("Отправка GET-запроса на просмотр клуба")
+    @Step("Отправить GET-запрос на просмотр клуба")
     public SuccessfulCreateClubResponseModel clubViewing(Integer clubId) {
         return given(requestSpec)
                 .pathParam("id", clubId)
@@ -37,7 +37,7 @@ public class ClubsApiClient {
                 .as(SuccessfulCreateClubResponseModel.class);
     }
 
-    @Step("Отправка PATCH-запроса на редактирование телеграм-ссылки клуба")
+    @Step("Отправить PATCH-запрос на редактирование телеграм-ссылки клуба")
     public SuccessfulCreateClubResponseModel clubTelegramEditing(Integer clubId, CreateClubsBodyModel clubsNewData, String access) {
         return given(requestSpec)
                 .pathParam("id", clubId)
@@ -51,7 +51,7 @@ public class ClubsApiClient {
                 .as(SuccessfulCreateClubResponseModel.class);
     }
 
-    @Step("Отправка PUT-запроса на редактирование данных клуба")
+    @Step("Отправить PUT-запрос на редактирование данных клуба")
     public SuccessfulCreateClubResponseModel clubDataEditing(Integer clubId, CreateClubsBodyModel clubsNewData, String access) {
         return given(requestSpec)
                 .pathParam("id", clubId)
@@ -65,7 +65,7 @@ public class ClubsApiClient {
                 .as(SuccessfulCreateClubResponseModel.class);
     }
 
-    @Step("Отправка DELETE-запроса на удаление клуба")
+    @Step("Отправить DELETE-запрос на удаление клуба")
     public void clubDeletion(Integer clubId, String access) {
         given(requestRemoveSpec)
                 .pathParam("id", clubId)
@@ -76,7 +76,7 @@ public class ClubsApiClient {
                 .spec(SuccessfulRemoveClubResponseSpec);
     }
 
-    @Step("Проверка удаления клуба")
+    @Step("Проверить, что клуб удален")
     public void clubViewing(Integer clubId, String access, Integer expectedStatusCode) {
         given(requestRemoveSpec)
                 .pathParam("id", clubId)
@@ -87,7 +87,7 @@ public class ClubsApiClient {
                 .statusCode(expectedStatusCode);
     }
 
-    @Step("Отправка POST-запроса на вступление в клуб")
+    @Step("Отправить POST-запрос на вступление в клуб")
     public void entryIntoClub(int clubId, String access) {
         given(requestSpec)
                 .pathParam("id", clubId)
