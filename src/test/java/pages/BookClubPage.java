@@ -27,7 +27,7 @@ public class BookClubPage {
             readPagesCard = $(".read-pages"),
             reviewRating = $(".stars"),
             editReviewButton = $(".edit-review-btn"),
-            saveBtn = $("save-btn"),
+            saveBtn = $(".save-btn"),
             deleteReviewButton = $(".delete-review-btn"),
             noReviews = $(".no-reviews");
 
