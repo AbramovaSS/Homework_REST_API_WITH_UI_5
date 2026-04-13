@@ -7,7 +7,7 @@ import java.util.Locale;
 public class TestData {
     Faker faker = new Faker(new Locale("en"));
 
-    public String username = faker.name().femaleFirstName() + faker.name(),
+    public String username = faker.name().femaleFirstName() + "faker",
             password = faker.credentials().password(),
             longUsername = faker.lorem().characters(151),
             firstName = faker.name().firstName(),
@@ -19,7 +19,7 @@ public class TestData {
             review = faker.lorem().paragraph(),
             newReview = faker.lorem().paragraph(),
             newEmail = faker.internet().emailAddress(),
-            newUsername = faker.name().femaleFirstName() + faker.name(),
+            newUsername = faker.name().femaleFirstName() + "fakeris",
             newFirstName = faker.name().firstName(),
             newLastName = faker.name().lastName();
 
