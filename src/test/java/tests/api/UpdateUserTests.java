@@ -31,18 +31,18 @@ public class UpdateUserTests extends TestBase {
                 testData.password));
 
         SuccessfulUpdateResponseModel updateResponse = api.user.userDataUpdate(new UpdateBodyModel(
-                testData.username,
-                testData.firstName,
-                testData.lastName,
-                testData.email),
+                testData.newUsername,
+                testData.newFirstName,
+                testData.newLastName,
+                testData.newEmail),
                 access);
 
         step("Проверка корректности обновленных данных пользователя", () -> {
             Assertions.assertThat(updateResponse.id()).isEqualTo(registrationResponse.id());
-            Assertions.assertThat(updateResponse.username()).isEqualTo(testData.username);
-            Assertions.assertThat(updateResponse.firstName()).isEqualTo(testData.firstName);
-            Assertions.assertThat(updateResponse.lastName()).isEqualTo(testData.lastName);
-            Assertions.assertThat(updateResponse.email()).isEqualTo(testData.email);
+            Assertions.assertThat(updateResponse.username()).isEqualTo(testData.newUsername);
+            Assertions.assertThat(updateResponse.firstName()).isEqualTo(testData.newFirstName);
+            Assertions.assertThat(updateResponse.lastName()).isEqualTo(testData.newLastName);
+            Assertions.assertThat(updateResponse.email()).isEqualTo(testData.newEmail);
             assertThat(updateResponse.remoteAddr()).isEqualTo(registrationResponse.remoteAddr());
         });
     }
@@ -55,12 +55,13 @@ public class UpdateUserTests extends TestBase {
                         testData.username,
                         testData.password));
 
-        String access = "Bearer " + api.auth.userAuthorization(new LoginBodyModel
-                (testData.username, testData.password));
+        String access = "Bearer " + api.auth.userAuthorization(new LoginBodyModel(
+                testData.username,
+                testData.password));
 
         SuccessfulUpdateResponseModel updateResponse = api.user.userEmailUpdate
                 (new UpdateEmailBodyModel(
-                        testData.email),
+                        testData.newEmail),
                         access);
 
         step("Проверка корректности обновленных данных, включая email", () -> {
@@ -86,9 +87,9 @@ public class UpdateUserTests extends TestBase {
 
         FieldRequiredResponseModel updateWithoutUsernameResponse = api.user.emptyUsernameUpdate
                 (new UpdateWithoutUsernameBodyModel(
-                        testData.firstName,
-                        testData.lastName,
-                        testData.email),
+                        testData.newFirstName,
+                        testData.newLastName,
+                        testData.newEmail),
                         access);
 
         step("Проверка, что API вернул ошибку о незаполненном поле username", () -> {

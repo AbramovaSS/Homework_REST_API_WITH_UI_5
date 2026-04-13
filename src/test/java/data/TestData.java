@@ -17,7 +17,11 @@ public class TestData {
             bookAuthors = faker.book().author() + faker.name(),
             description = faker.lorem().paragraph(),
             review = faker.lorem().paragraph(),
-            newReview = faker.lorem().paragraph();
+            newReview = faker.lorem().paragraph(),
+            newEmail = faker.internet().emailAddress(),
+            newUsername = faker.name().femaleFirstName() + "briz",
+            newFirstName = faker.name().firstName(),
+            newLastName = faker.name().lastName();
 
     public Integer publicationYear = faker.number().numberBetween(1200, 2026),
             assessment = faker.number().numberBetween(1, 5),
@@ -71,8 +75,10 @@ public class TestData {
 
     public static final int CLUB_ID_WITH_REVIEWS = 2;
 
-    public static final int REVIEW_ID = 6;
+    public static final int REVIEW_ID = 5;
 
     public static final String ERROR_CONVERTING_TO_JSON = "Ошибка конвертации объекта в JSON";
+
+    public static final String EMPTY_FIELD_USERNAME = " ";
 
 }

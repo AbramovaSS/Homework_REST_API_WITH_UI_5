@@ -248,9 +248,8 @@ public class ReviewTests extends TestBase {
 
         String access = "Bearer " + loginResponse.access();
 
-        NotPermissionResponseModel deleteReviewNotPermissionResponse = api.reviews.notPermissionDeleteResponse(
-                REVIEW_ID,
-                access);
+        NotPermissionResponseModel deleteReviewNotPermissionResponse = api.reviews.notPermissionDeleteResponse
+                (REVIEW_ID, access);
 
         step("Проверка сообщения об ошибке при попытке удалить чужой отзыв", () -> {
             String actualDetail = deleteReviewNotPermissionResponse.detail();

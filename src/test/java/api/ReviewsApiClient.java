@@ -2,8 +2,6 @@ package api;
 
 import io.qameta.allure.Step;
 import models.clubs.SuccessfulCreateReviewResponseModel;
-import models.login.LoginBodyModel;
-import models.login.WrongCredentialsResponseModel;
 import models.reviews.CreateReviewBodyModel;
 import models.reviews.EditAssessmentReviewBodyModel;
 import models.reviews.NotPermissionResponseModel;
@@ -11,8 +9,6 @@ import models.reviews.NotPermissionResponseModel;
 import static io.restassured.RestAssured.given;
 import static specs.BaseSpec.requestRemoveSpec;
 import static specs.BaseSpec.requestSpec;
-import static specs.clubs.ClubSpec.SuccessfulRemoveClubResponseSpec;
-import static specs.login.LoginSpec.wrongCredentialLoginResponseSpec;
 import static specs.reviews.ReviewsSpec.*;
 
 public class ReviewsApiClient {
