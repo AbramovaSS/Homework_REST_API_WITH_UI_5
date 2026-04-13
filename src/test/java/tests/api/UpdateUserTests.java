@@ -3,6 +3,7 @@ package tests.api;
 import data.TestData;
 import models.login.FieldRequiredResponseModel;
 import models.login.LoginBodyModel;
+import models.login.SuccessfulLoginResponseModel;
 import models.registration.RegistrationBodyModel;
 import models.registration.SuccessfulRegistrationResponseModel;
 import models.update.*;
@@ -26,9 +27,14 @@ public class UpdateUserTests extends TestBase {
                         testData.username,
                         testData.password));
 
-        String access = "Bearer " + api.auth.userAuthorization(new LoginBodyModel(
-                testData.username,
-                testData.password));
+        SuccessfulLoginResponseModel loginResponse = api.auth.userAuthorization
+                (new LoginBodyModel(
+                        testData.username,
+                        testData.password));
+
+        String access = "Bearer " + loginResponse.access();
+
+        api.auth.userAuthorization(new LoginBodyModel(testData.username, testData.password));
 
         SuccessfulUpdateResponseModel updateResponse = api.user.userDataUpdate(new UpdateBodyModel(
                 testData.newUsername,
@@ -55,9 +61,14 @@ public class UpdateUserTests extends TestBase {
                         testData.username,
                         testData.password));
 
-        String access = "Bearer " + api.auth.userAuthorization(new LoginBodyModel(
-                testData.username,
-                testData.password));
+        SuccessfulLoginResponseModel loginResponse = api.auth.userAuthorization
+                (new LoginBodyModel(
+                        testData.username,
+                        testData.password));
+
+        String access = "Bearer " + loginResponse.access();
+
+        api.auth.userAuthorization(new LoginBodyModel(testData.username, testData.password));
 
         SuccessfulUpdateResponseModel updateResponse = api.user.userEmailUpdate
                 (new UpdateEmailBodyModel(
@@ -81,9 +92,14 @@ public class UpdateUserTests extends TestBase {
                 testData.username,
                 testData.password));
 
-        String access = "Bearer " + api.auth.userAuthorization(new LoginBodyModel(
-                testData.username,
-                testData.password));
+        SuccessfulLoginResponseModel loginResponse = api.auth.userAuthorization
+                (new LoginBodyModel(
+                        testData.username,
+                        testData.password));
+
+        String access = "Bearer " + loginResponse.access();
+
+        api.auth.userAuthorization(new LoginBodyModel(testData.username, testData.password));
 
         FieldRequiredResponseModel updateWithoutUsernameResponse = api.user.emptyUsernameUpdate
                 (new UpdateWithoutUsernameBodyModel(

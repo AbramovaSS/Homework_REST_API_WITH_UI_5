@@ -50,9 +50,7 @@ public class LoginTests extends TestBase {
                 testData.username,
                 testData.password));
 
-        LoginBodyModel loginData = new LoginBodyModel(
-                testData.username,
-                testData.password + "1");
+        LoginBodyModel loginData = new LoginBodyModel(testData.username, testData.password + "1");
         WrongCredentialsResponseModel loginResponse = api.auth.wrongPasswordAuthorization(loginData);
 
         step("Проверка сообщения об ошибке при авторизации с неверным паролем", () -> {
