@@ -7,7 +7,7 @@ import java.util.Locale;
 public class TestData {
     Faker faker = new Faker(new Locale("en"));
 
-    public String username = faker.name().femaleFirstName() + "preshporok",
+    public String username = faker.name().femaleFirstName() + faker.name(),
             password = faker.credentials().password(),
             longUsername = faker.lorem().characters(151),
             firstName = faker.name().firstName(),
@@ -19,7 +19,7 @@ public class TestData {
             review = faker.lorem().paragraph(),
             newReview = faker.lorem().paragraph(),
             newEmail = faker.internet().emailAddress(),
-            newUsername = faker.name().femaleFirstName() + "briz",
+            newUsername = faker.name().femaleFirstName() + faker.name(),
             newFirstName = faker.name().firstName(),
             newLastName = faker.name().lastName();
 
@@ -27,8 +27,7 @@ public class TestData {
             assessment = faker.number().numberBetween(1, 5),
             readPages = faker.number().numberBetween(1, 100000),
             newAssessment = faker.number().numberBetween(1, 5),
-            newReadPages = faker.number().numberBetween(1, 100000),
-            clubId = faker.number().numberBetween(1, 80);
+            newReadPages = faker.number().numberBetween(1, 100000);
 
     public static final String REFRESH_NULL = null;
 
@@ -79,6 +78,6 @@ public class TestData {
 
     public static final String ERROR_CONVERTING_TO_JSON = "Ошибка конвертации объекта в JSON";
 
-    public static final String EMPTY_FIELD_USERNAME = " ";
+    public static final int ClUB_ID = 4;
 
 }

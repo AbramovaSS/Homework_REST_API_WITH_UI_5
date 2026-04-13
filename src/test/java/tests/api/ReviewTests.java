@@ -12,7 +12,6 @@ import models.reviews.EditAssessmentReviewBodyModel;
 import models.reviews.NotPermissionResponseModel;
 import org.assertj.core.api.SoftAssertions;
 import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import tests.TestBase;
 
@@ -271,10 +270,10 @@ public class ReviewTests extends TestBase {
 
         String access = "Bearer " + loginResponse.access();
 
-        api.clubs.entryIntoClub(testData.clubId, access);
+        api.clubs.entryIntoClub(ClUB_ID, access);
 
         CreateReviewBodyModel reviewData = new CreateReviewBodyModel(
-                testData.clubId,
+                ClUB_ID,
                 testData.review,
                 testData.assessment,
                 testData.readPages);
@@ -285,7 +284,7 @@ public class ReviewTests extends TestBase {
 
         step("Проверка данных оставленного отзыва", () -> {
             SoftAssertions.assertSoftly(softAssertions -> {
-                softAssertions.assertThat(createReviewResponse.club()).isEqualTo(testData.clubId);
+                softAssertions.assertThat(createReviewResponse.club()).isEqualTo(ClUB_ID);
                 softAssertions.assertThat(createReviewResponse.review()).isEqualTo(testData.review);
                 softAssertions.assertThat(createReviewResponse.assessment()).isEqualTo(testData.assessment);
                 softAssertions.assertThat(createReviewResponse.readPages()).isEqualTo(testData.readPages);
