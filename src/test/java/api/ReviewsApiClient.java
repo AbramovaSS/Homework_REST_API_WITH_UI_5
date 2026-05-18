@@ -12,7 +12,7 @@ import static specs.BaseSpec.requestSpec;
 import static specs.reviews.ReviewsSpec.*;
 
 public class ReviewsApiClient {
-    @Step("Отправить POST-запрос на создание отзыва")
+    @Step("Отправка POST-запроса на создание отзыва")
     public SuccessfulCreateReviewResponseModel reviewCreation(String access, CreateReviewBodyModel reviewData) {
         return given(requestSpec)
                 .header("Authorization", access)
@@ -25,7 +25,7 @@ public class ReviewsApiClient {
                 .as(SuccessfulCreateReviewResponseModel.class);
     }
 
-    @Step("Отправить PUT-запрос на редактирование отзыва")
+    @Step("Отпрака PUT-запроса на редактирование отзыва")
     public SuccessfulCreateReviewResponseModel reviewEdit
             (Integer reviewId, String access, CreateReviewBodyModel editReviewData) {
         return given(requestSpec)
@@ -40,7 +40,7 @@ public class ReviewsApiClient {
                 .as(SuccessfulCreateReviewResponseModel.class);
     }
 
-    @Step("Отправить PATCH-запрос на редактирование оценки отзыва")
+    @Step("Отправка PATCH-запроса на редактирование оценки отзыва")
     public SuccessfulCreateReviewResponseModel reviewAssessmentEdit
             (Integer reviewId, String access, EditAssessmentReviewBodyModel editAssessmentReviewData) {
         return given(requestSpec)
@@ -55,7 +55,7 @@ public class ReviewsApiClient {
                 .as(SuccessfulCreateReviewResponseModel.class);
     }
 
-    @Step("Отправить DELETE-запрос на удаление отзыва")
+    @Step("Отправка DELETE-запроса на удаление отзыва")
     public void reviewDeletion(Integer reviewId, String access) {
         given(requestRemoveSpec)
                 .pathParam("id", reviewId)
@@ -66,7 +66,7 @@ public class ReviewsApiClient {
                 .spec(deleteReviewResponseSpec);
     }
 
-    @Step("Провеить, что отзыв удален")
+    @Step("Проверка удаления отзыва")
     public void reviewViewing(Integer reviewId, String access, Integer expectedStatusCode) {
         given(requestRemoveSpec)
                 .pathParam("id", reviewId)

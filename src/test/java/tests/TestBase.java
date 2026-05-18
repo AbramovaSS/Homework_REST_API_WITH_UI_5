@@ -20,8 +20,8 @@ public class TestBase {
 
     protected static final ApiClient api = new ApiClient();
 
-    @BeforeAll
     @DisplayName("Инициализация тестового окружения для тестов")
+    @BeforeAll
     public static void setUp() {
         RestAssured.baseURI = "https://book-club.qa.guru";
         RestAssured.basePath = "/api/v1";
@@ -41,8 +41,8 @@ public class TestBase {
         Configuration.remote = remoteUrl;
     }
 
-    @BeforeEach
     @DisplayName("Добавление Allure-логирования для каждого теста")
+    @BeforeEach
     void addListener() {
         SelenideLogger.addListener("AllureSelenide", new AllureSelenide());
     }
