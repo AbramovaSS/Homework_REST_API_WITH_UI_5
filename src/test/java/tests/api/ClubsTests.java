@@ -101,7 +101,7 @@ public class ClubsTests extends TestBase {
 
     @Test
     @DisplayName("[API] Редактирование телеграм-ссылки клуба")
-    public void successfulEditingClub() {
+    public void successfulEditingTelegramClub() {
         api.user.userRegistration(new RegistrationBodyModel(
                 testData.username,
                 testData.password));
@@ -136,14 +136,66 @@ public class ClubsTests extends TestBase {
                 access);
 
         step("Проверка данных клуба после редактирования Telegram-ссылки", () -> {
-            assertThat(editingClubResponse.id()).isNotNull();
-            assertThat(editingClubResponse.id()).isEqualTo(createClubResponse.id());
-            assertThat(editingClubResponse.bookTitle()).isEqualTo(testData.bookTitle);
-            assertThat(editingClubResponse.bookAuthors()).isEqualTo(testData.bookAuthors);
-            assertThat(editingClubResponse.publicationYear()).isEqualTo(testData.publicationYear);
-            assertThat(editingClubResponse.description()).isEqualTo(testData.description);
-            assertThat(editingClubResponse.telegramChatLink()).isEqualTo(NEW_TELEGRAM_CHAT_LINK);
-            assertThat(editingClubResponse.modified()).isNotNull();
+            SoftAssertions.assertSoftly(softAssertions -> {
+                softAssertions.assertThat(editingClubResponse.id()).isNotNull();
+                softAssertions.assertThat(editingClubResponse.id()).isEqualTo(createClubResponse.id());
+                softAssertions.assertThat(editingClubResponse.bookTitle()).isEqualTo(testData.bookTitle);
+                softAssertions.assertThat(editingClubResponse.bookAuthors()).isEqualTo(testData.bookAuthors);
+                softAssertions.assertThat(editingClubResponse.publicationYear()).isEqualTo(testData.publicationYear);
+                softAssertions.assertThat(editingClubResponse.description()).isEqualTo(testData.description);
+                softAssertions.assertThat(editingClubResponse.telegramChatLink()).isEqualTo(NEW_TELEGRAM_CHAT_LINK);
+                softAssertions.assertThat(editingClubResponse.modified()).isNotNull();
+            });
+        });
+    }
+
+    @Test
+    @DisplayName("[API] Редактирование данных клуба")
+    public void successfulEditingDataClub() {
+        api.user.userRegistration(new RegistrationBodyModel(
+                testData.username,
+                testData.password));
+
+        SuccessfulLoginResponseModel loginResponse = api.auth.userAuthorization(new LoginBodyModel(
+                testData.username,
+                testData.password));
+
+        CreateClubsBodyModel clubsData = new CreateClubsBodyModel(
+                testData.bookTitle,
+                testData.bookAuthors,
+                testData.publicationYear,
+                testData.description,
+                TELEGRAM_CHAT_LINK);
+
+        String access = "Bearer " + loginResponse.access();
+
+        SuccessfulCreateClubResponseModel createClubResponse = api.clubs.clubCreation(
+                clubsData,
+                access);
+
+        CreateClubsBodyModel clubsNewData = new CreateClubsBodyModel(
+                testData.newBookTitle,
+                testData.newBookAuthors,
+                testData.newPublicationYear,
+                testData.newDescription,
+                NEW_TELEGRAM_CHAT_LINK);
+
+        SuccessfulCreateClubResponseModel editingClubResponse = api.clubs.clubDataEditing(
+                createClubResponse.id(),
+                clubsNewData,
+                access);
+
+        step("Проверка данных клуба после редактирования", () -> {
+            SoftAssertions.assertSoftly(softAssertions -> {
+                softAssertions.assertThat(editingClubResponse.id()).isNotNull();
+                softAssertions.assertThat(editingClubResponse.id()).isEqualTo(createClubResponse.id());
+                softAssertions.assertThat(editingClubResponse.bookTitle()).isEqualTo(testData.newBookTitle);
+                softAssertions.assertThat(editingClubResponse.bookAuthors()).isEqualTo(testData.newBookAuthors);
+                softAssertions.assertThat(editingClubResponse.publicationYear()).isEqualTo(testData.newPublicationYear);
+                softAssertions.assertThat(editingClubResponse.description()).isEqualTo(testData.newDescription);
+                softAssertions.assertThat(editingClubResponse.telegramChatLink()).isEqualTo(NEW_TELEGRAM_CHAT_LINK);
+                softAssertions.assertThat(editingClubResponse.modified()).isNotNull();
+            });
         });
     }
 

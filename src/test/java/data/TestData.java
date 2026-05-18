@@ -21,13 +21,17 @@ public class TestData {
             newEmail = faker.internet().emailAddress(),
             newUsername = faker.name().femaleFirstName() + "fakeris",
             newFirstName = faker.name().firstName(),
-            newLastName = faker.name().lastName();
+            newLastName = faker.name().lastName(),
+            newBookTitle = faker.book().title() + faker.brand(),
+            newBookAuthors = faker.book().author() + faker.name(),
+            newDescription = faker.lorem().paragraph();
 
     public Integer publicationYear = faker.number().numberBetween(1200, 2026),
             assessment = faker.number().numberBetween(1, 5),
             readPages = faker.number().numberBetween(1, 100000),
             newAssessment = faker.number().numberBetween(1, 5),
-            newReadPages = faker.number().numberBetween(1, 100000);
+            newReadPages = faker.number().numberBetween(1, 100000),
+            newPublicationYear = faker.number().numberBetween(1200, 2026);
 
     public static final String REFRESH_NULL = null;
 
