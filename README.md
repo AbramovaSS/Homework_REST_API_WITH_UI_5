@@ -68,12 +68,15 @@ Jenkins-сборки можно запускать напрямую из Allure 
 - Статус тестов (прошли/упали — на основе Allure-отчёта)
 - Привязка к задачам — каждая сборка автоматически связывается с соответствующими задачами (Epics, Stories, Bugs)
 
+### Тест-кейсы из TestOps, привязанные к задаче
 ![Основная информация](media/screenshots/img_jira.png)
+
+### Запуски автотестов с возможностью перехода в TestOps
 ![Основная информация](media/screenshots/img_jira_1.png)
 ## <a id="уведомление-в-telegram">Уведомление в Telegram</a>
 Результат прогона отправляется в чат мессенджера Telegram
 
-![Основная информация](media/screenshots/telegram.messenger.jpg)
+![Основная информация](media/screenshots/img_telega.png)
 
 
 
