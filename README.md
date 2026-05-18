@@ -10,7 +10,6 @@
 результатах в Telegram. Для комплексного анализа результатов настроена интеграция с
 системами [Allure TestOps](https://allure.autotests.cloud/jobrun/51167) и [Jira](https://jira.autotests.cloud/browse/HOMEWORK-1578).
 
----
 
 ## 🛠 Cтек
 
@@ -27,17 +26,15 @@
    <a href="https://www.atlassian.com/software/jira" target="_blank" rel="noopener"><img src="media/icons/atlassian_jira.svg" alt="Jira" width="50" height="50"></a>
    <a href="https://telegram.org" target="_blank" rel="noopener"><img src="media/icons/telegram.png" alt="Telegram" width="50" height="50"></a>
 
----
 
 Содержание
----
+
 - [Сборка в Jenkins](#сборка-в-jenkins)
 - [Пример Allure-отчета](#пример-allure-отчета)
 - [Интеграция с Allure TestOps](#интеграция-с-Allure-TestOps)
 - [Интеграция с  Jira](#интеграция-с-Jira)
 - [Уведомление в Telegram](#уведомление-в-telegram)
 - [Пример видео из Selenoid](#пример-видео-из-selenoid)
----
 
 
 ## <a id="сборка-в-jenkins">Сборка в Jenkins</a>
