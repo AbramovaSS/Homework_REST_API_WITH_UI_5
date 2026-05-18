@@ -1,19 +1,20 @@
-# Проект по автоматизации тестирования API с библиотекой REST Assured
-![Основная информация](media/screenshots/alfa.jpg)
+# Проект по автоматизации тестирования API с библиотекой REST Assured на примере демо-стенда [book-club](https://book-club.qa.guru/)
 
-<abbr title="Java"><img src="images/icons/alfabank.gif" alt="Java" width="20" height="20"></abbr> Содержание
----
-- [Инструменты и технологии](#инструменты-и-технологии)
-- [Описание проекта](#описание-проекта)
-- [Запуск автотестов](#запуск-автотестов)
-- [Сборка в Jenkins](#сборка-в-jenkins)
-- [Пример Allure-отчета](#пример-allure-отчета)
-- [Интеграция с Allure TestOps](#интеграция-с-Allure-TestOps)
-- [Интеграция с  Jira](#интеграция-с-Jira)
-- [Уведомление в Telegram](#уведомление-в-telegram)
-- [Пример видео из Selenoid](#пример-видео-из-selenoid)
----
-## <a id="инструменты-и-технологии">Инструменты и технологии</a>
+Данный проект содержит набор автоматизированных UI- и API-тестов для сайта книжного клуба [https://book-club.qa.guru/](https://book-club.qa.guru/).
+
+В рамках API-тестирования особое внимание уделяется проверке основных сценариев, основанных на операциях **CRUD (Create, Read, Update, Delete)**:
+
+*   **Create (Создание):** Тесты проверяют корректность добавления новых данных (например, новых книг, пользователей, отзывов) через API.
+*   **Read (Чтение):** Верифицируется корректное получение информации о существующих сущностях (как отдельных элементов, так и списков).
+*   **Update (Обновление):** Тесты подтверждают возможность и корректность изменения данных существующих сущностей.
+*   **Delete (Удаление):** Проверяется корректное удаление сущностей через API.
+
+Запуск тестов происходит через джобу в [Jenkins](https://jenkins.autotests.cloud/view/java_students/job/AbramovaS_Ready_project_for_Alfa_Bank/),
+которая также отвечает за генерацию Allure-отчетов и отправку уведомлений о
+результатах в Telegram. Для комплексного анализа результатов настроена интеграция с
+системами [Allure TestOps](https://allure.autotests.cloud/jobrun/51167) и [Jira](https://jira.autotests.cloud/browse/HOMEWORK-1578).
+
+## Инструменты и технологии
 
 <p align="center">
    <a href="https://www.java.com" target="_blank" rel="noopener"><img src="media/icons/java.svg" alt="Java" width="50" height="50"></a>
@@ -27,46 +28,31 @@
    <a href="https://www.atlassian.com/software/jira" target="_blank" rel="noopener"><img src="media/icons/atlassian_jira.svg" alt="Jira" width="50" height="50"></a>
    <a href="https://telegram.org" target="_blank" rel="noopener"><img src="media/icons/telegram.png" alt="Telegram" width="50" height="50"></a>
 
-## <a id="описание-проекта">Описание проекта</a>
 
-UI-автотесты написаны на языке `Java` c использованием `JDK 17`, `Gradle`, а также библиотек `Selenide` и `JUnit 5`.
-Удаленный запуск тестов происходит через джобу в [Jenkins](https://jenkins.autotests.cloud/view/java_students/job/AbramovaS_Ready_project_for_Alfa_Bank/), 
-которая также отвечает за генерацию Allure-отчетов и отправку уведомлений о 
-результатах в Telegram. Для комплексного анализа результатов настроена интеграция с 
-системами [Allure TestOps](https://allure.autotests.cloud/jobrun/51167) и [Jira](https://jira.autotests.cloud/browse/HOMEWORK-1578).
-## <a id="запуск-автотестов">Запуск автотестов</a>
-**Локальный запуск через терминал**
-```
-gradle clean test
-```
-**Удалённый запуск в Jenkins**
-```
-clean test 
--DbaseUrl=${baseUrl}" 
--DremoteUrl=${remoteUrl}"
--Dbrowser=${browser}" 
--Dversion=${browserVersion}"
--DbrowserSize=${browserSize}" 
-```
-**Параметры сборки**
-- `BASE_URL` - базовый URL-адрес веб-сайта или приложения
-- `REMOTE_URL` - удаленный URL (=Selenoid Hub URL)
-- `BROWSER` - браузер для выполнения автотестов
-- `BROWSER_VERSION` - версия браузера
-- `BROWSER_SIZE` - размер окна браузера (ширина × высота)
+Содержание
+---
+- [Сборка в Jenkins](#сборка-в-jenkins)
+- [Пример Allure-отчета](#пример-allure-отчета)
+- [Интеграция с Allure TestOps](#интеграция-с-Allure-TestOps)
+- [Интеграция с  Jira](#интеграция-с-Jira)
+- [Уведомление в Telegram](#уведомление-в-telegram)
+- [Пример видео из Selenoid](#пример-видео-из-selenoid)
+---
+
+
 ## <a id="сборка-в-jenkins">Сборка в Jenkins</a>
 Jenkins автоматизирует запуск автотестов при изменении кода или по расписанию. 
 Для выбора параметров (например, окружения, браузера, версии браузера и т.д.) и запуска сборки в Jenkins необходимо нажать <kbd>Build with Parameters</kbd>.
 После прогона формируется отчет: результаты тестов, включая скриншоты, логи и видео, сохраняются в формате Allure и доступны по ссылке.
 
-![Основная информация](media/screenshots/jenkins_1.jpg)
+![Основная информация](media/screenshots/image_jenkins.png)
 ## <a id="пример-allure-отчета">Пример Allure-отчета</a>
 Увидеть результаты автотестов можно в интерактивном Allure-отчёте — с детальными скриншотами, логами, видео и историей запусков. 
 Ссылка на отчёт доступна после успешного запуска сборки в Jenkins.
 ### Обзорная информация
 ![Основная информация](media/screenshots/allure_report_dashbord.jpg)
 ### Тест-кейсы
-![Основная информация](media/screenshots/allure_report_test.jpg)
+![Основная информация](media/screenshots/image_allure.png)
 ## <a id="интеграция-с-Allure-TestOps">Интеграция с Allure TestOps</a>
 Интеграция с Jenkins позволяет автоматически передавать результаты тестов из 
 сборки в TestOps, где можно отслеживать историю запусков, анализировать прогоны, управлять тест-кейсами, дефектами и требованиями в одном месте. Через общие дашборды
@@ -88,7 +74,7 @@ Jenkins-сборки можно запускать напрямую из Allure 
 ## <a id="уведомление-в-telegram">Уведомление в Telegram</a>
 Результат прогона отправляется в чат мессенджера Telegram
 
-![Основная информация](media/screenshots/telegram_1.jpg)
+![Основная информация](media/screenshots/telegram.messenger.jpg)
 ## <a id="пример-видео-из-selenoid">Пример видео из Selenoid</a>
 ![описание](media/video/selenoid_gif.gif)
 
