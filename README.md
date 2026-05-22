@@ -5,10 +5,10 @@
 Тесты разработаны на основе Swagger-спецификации проекта и покрывают полный цикл CRUD-операций: регистрация, авторизация, управление клубами и отзывами.
 
 
-Запуск тестов происходит через джобу в [Jenkins](https://jenkins.autotests.cloud/view/java_students/job/AbramovaS_Ready_project_for_Alfa_Bank/),
+Запуск тестов происходит через джобу в [Jenkins](https://jenkins.autotests.cloud/view/java_students/job/AbramovaS_REST_API_WITH_UI/),
 которая также отвечает за генерацию Allure-отчетов и отправку уведомлений о
 результатах в Telegram. Для комплексного анализа результатов настроена интеграция с
-системами [Allure TestOps](https://allure.autotests.cloud/jobrun/51167) и [Jira](https://jira.autotests.cloud/browse/HOMEWORK-1578).
+системами [Allure TestOps](https://allure.autotests.cloud/launch/53128) и [Jira](https://jira.autotests.cloud/browse/HOMEWORK-1606).
 
 
 ## 🛠 Cтек
